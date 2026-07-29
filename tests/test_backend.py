@@ -121,3 +121,19 @@ def test_report_endpoint(enterprise_client_harness):
     assert "architecture_tiers" in data
     assert len(data["architecture_tiers"]) == 3
 
+
+def test_portfolio_health_endpoint(enterprise_client_harness):
+    """Verifies that /api/portfolio/health returns KKR Portfolio Health KPIs and Business Ventures."""
+    response = enterprise_client_harness.get('/api/portfolio/health')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert "portfolio_summary" in data
+    assert data["portfolio_summary"]["total_annual_ebitda_impact"] == "$4.45M"
+    assert "business_ventures" in data
+    assert len(data["business_ventures"]) == 3
+    for venture in data["business_ventures"]:
+        assert "name" in venture
+        assert "ebitda_impact" in venture
+        assert "kpi_improvement" in venture
+
+

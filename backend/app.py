@@ -526,6 +526,66 @@ def get_value_proposition_report():
         ]
     })
 
+@app.route('/api/portfolio/health', methods=['GET'])
+def get_portfolio_health_dashboard():
+    """REST endpoint serving KKR Overall Portfolio Health & Business Venture KPIs."""
+    return jsonify({
+        "portfolio_summary": {
+            "total_annual_ebitda_impact": "$4.45M",
+            "aggregate_health_score": "98.1%",
+            "active_ventures_count": 3,
+            "grounded_legacy_systems": ["AS400 Mainframe", "SAP S/4HANA", "Epic EHR", "Oracle PO Cloud"],
+            "zero_trust_compliance": "100% Compliant",
+            "velocity_gain": "+450%"
+        },
+        "business_ventures": [
+            {
+                "id": "KKR-HEALTHCARE-01",
+                "name": "Healthcare Asset Management",
+                "sector": "Healthcare & Payor Operations",
+                "core_use_case": "Claims Pre-Authorization & Medical Code Matching",
+                "legacy_infrastructure": "AS400 Mainframe & Epic EHR (FHIR)",
+                "active_blueprint": "Medical_PreAuth_Verification_v4",
+                "kpi_baseline": "96 Hours per Claim",
+                "kpi_current": "< 10 Minutes per Claim",
+                "kpi_improvement": "99.8% Latency Reduction",
+                "ebitda_impact": "$1.20M Annual OPEX Savings",
+                "health_score": "98.4%",
+                "status": "HEALTHY",
+                "governance_status": "HITL Threshold Active ($25k)"
+            },
+            {
+                "id": "KKR-FINANCE-02",
+                "name": "Global Finance & AP",
+                "sector": "Corporate Financial Operations",
+                "core_use_case": "Accounts Payable 3-Way Match & Tax Reconciliation",
+                "legacy_infrastructure": "SAP S/4HANA Finance & Oracle ERP",
+                "active_blueprint": "Procurement_Invoice_Matching_v3",
+                "kpi_baseline": "8.5% Invoice Mismatch Error Rate",
+                "kpi_current": "< 0.1% Error Rate",
+                "kpi_improvement": "98.8% Error Reduction",
+                "ebitda_impact": "$450k Annual AP Operational Savings",
+                "health_score": "99.2%",
+                "status": "HEALTHY",
+                "governance_status": "APPROVED (Auto-Reconcile R1)"
+            },
+            {
+                "id": "KKR-LOGISTICS-03",
+                "name": "Multi-Modal Supply Chain & Freight",
+                "sector": "Logistics & Industrial Distribution",
+                "core_use_case": "Dynamic Freight Rerouting & Buffer Optimization",
+                "legacy_infrastructure": "Oracle Cloud PO & Port Terminal APIs",
+                "active_blueprint": "Supply_Chain_Buffer_Optimization_v2",
+                "kpi_baseline": "72 Hours Disruption Recovery",
+                "kpi_current": "15 Minutes Disruption Recovery",
+                "kpi_improvement": "99.6% Recovery Acceleration",
+                "ebitda_impact": "$2.80M Freight & Carrying Cost Optimization",
+                "health_score": "96.8%",
+                "status": "HEALTHY",
+                "governance_status": "APPROVED (Dynamic Rail Link)"
+            }
+        ]
+    })
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5050))
