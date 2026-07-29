@@ -42,7 +42,7 @@
                 
                 <div class="control-group">
                     <label for="portfolioCompany">Portfolio Company Context</label>
-                    <select id="portfolioCompany" class="custom-select">
+                    <select id="portfolioCompany" class="custom-select" onchange="handleCompanySelectChange(this.value)">
                         <option value="KKR-HEALTHCARE-01">Healthcare Asset (AS400 & Epic EHR)</option>
                         <option value="KKR-FINANCE-02">Global Finance & AP (SAP S/4HANA)</option>
                         <option value="KKR-LOGISTICS-03">Supply Chain & Freight (Oracle PO Cloud)</option>

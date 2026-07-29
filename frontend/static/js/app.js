@@ -355,3 +355,23 @@ function closeReportModal(event) {
     document.getElementById("reportModal").classList.remove("active");
 }
 
+function handleCompanySelectChange(val) {
+    if (val === "KKR-HEALTHCARE-01") {
+        uiEngine.setPreset("claims");
+    } else if (val === "KKR-FINANCE-02") {
+        uiEngine.setPreset("procurement");
+    } else if (val === "KKR-LOGISTICS-03") {
+        uiEngine.setPreset("supply_chain");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Populate default scenario on initial page load
+    const companySelect = document.getElementById("portfolioCompany");
+    if (companySelect) {
+        handleCompanySelectChange(companySelect.value);
+    }
+});
+
+
+
