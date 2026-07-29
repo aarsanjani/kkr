@@ -107,3 +107,17 @@ def test_fcot_engine_complexity_evaluator():
     
     tier_low = engine.evaluate_complexity("Simple query", financial_estimate=50)
     assert tier_low == "DIRECT_L3"
+
+
+def test_report_endpoint(enterprise_client_harness):
+    """Verifies that /api/report returns compliant structured value proposition JSON."""
+    response = enterprise_client_harness.get('/api/report')
+    assert response.status_code == 200
+    data = response.get_json()
+    assert "title" in data
+    assert "executive_summary" in data
+    assert "value_pillars" in data
+    assert len(data["value_pillars"]) >= 4
+    assert "architecture_tiers" in data
+    assert len(data["architecture_tiers"]) == 3
+

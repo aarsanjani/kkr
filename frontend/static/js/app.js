@@ -224,6 +224,90 @@ class MultiAgentDynamicUiEngine {
             container.appendChild(tabsWrapper);
         }
     }
+
+    async fetchAndRenderReport() {
+        const modal = document.getElementById("reportModal");
+        const modalBody = document.getElementById("reportModalBody");
+        modal.classList.add("active");
+        modalBody.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted);">Loading report data...</div>';
+
+        try {
+            const res = await fetch('/api/report');
+            const data = await res.json();
+
+            document.getElementById("reportTitle").innerText = data.title;
+            document.getElementById("reportSubtitle").innerText = data.subtitle;
+
+            let html = `
+                <div style="background:rgba(15,23,42,0.6); padding:16px; border-radius:8px; border-left:4px solid var(--accent-blue); line-height:1.6; color:var(--text-primary);">
+                    <strong style="color:var(--accent-blue); font-size:14px;">Executive Summary:</strong><br/>
+                    ${data.executive_summary}
+                </div>
+
+                <div>
+                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">Key Value Pillars for KKR Portfolio Companies</h3>
+                    <table class="ui-table">
+                        <thead>
+                            <tr>
+                                <th>Challenge</th>
+                                <th>Legacy Approach</th>
+                                <th>KKR Agentic Engine Solution</th>
+                                <th>Financial & Operational Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.value_pillars.map(p => `
+                                <tr>
+                                    <td><strong style="color:var(--accent-cyan);">${p.challenge}</strong></td>
+                                    <td style="color:var(--text-secondary);">${p.legacy_approach}</td>
+                                    <td>${p.solution}</td>
+                                    <td><span class="badge badge-success">${p.impact}</span></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">3-Tiered Architecture & Agent Hierarchy</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+                        ${data.architecture_tiers.map((t, idx) => `
+                            <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid var(--border-color);">
+                                <h4 style="font-size:13px; color:${idx === 0 ? 'var(--accent-blue)' : idx === 1 ? 'var(--accent-purple)' : 'var(--accent-green)'}; margin-bottom:6px;">${t.tier}</h4>
+                                <div style="margin-bottom:8px;">
+                                    ${t.agents.map(a => `<span class="badge" style="background:rgba(255,255,255,0.06); color:var(--text-primary); margin-right:4px;">${a}</span>`).join('')}
+                                </div>
+                                <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">${t.role}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">Concrete Asset Impact Walkthroughs</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                        ${data.concrete_walkthroughs.map(w => `
+                            <div style="background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.25); padding:14px; border-radius:8px;">
+                                <div style="font-size:11px; font-weight:700; color:var(--accent-green); uppercase;">${w.sector}</div>
+                                <h4 style="font-size:14px; font-weight:700; margin:4px 0;">${w.scenario}</h4>
+                                <div style="font-size:12px; color:var(--text-secondary); margin-top:6px;">
+                                    Latency/Error Impact: <strong>${w.latency_reduction || w.error_rate_reduction}</strong>
+                                </div>
+                                <div style="font-size:13px; font-weight:700; color:#fff; margin-top:4px;">
+                                    EBITDA Impact: ${w.financial_impact}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            modalBody.innerHTML = html;
+        } catch (err) {
+            console.error("Report fetch error:", err);
+            modalBody.innerHTML = '<div style="color:var(--accent-red); padding:20px;">Failed to load report data.</div>';
+        }
+    }
 }
 
 const uiEngine = new MultiAgentDynamicUiEngine();
@@ -239,3 +323,15 @@ function runOrchestrationStream() {
 function clearTerminal() {
     uiEngine.clearTerminal();
 }
+
+function openReportModal() {
+    uiEngine.fetchAndRenderReport();
+}
+
+function closeReportModal(event) {
+    if (event && event.target !== document.getElementById("reportModal") && !event.target.classList.contains("btn-close")) {
+        return;
+    }
+    document.getElementById("reportModal").classList.remove("active");
+}
+

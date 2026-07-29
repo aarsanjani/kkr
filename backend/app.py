@@ -401,6 +401,73 @@ def session_context_manager():
         "ttl": 3600
     })
 
+@app.route('/api/report', methods=['GET'])
+def get_value_proposition_report():
+    """REST endpoint serving structured Value Proposition & Strategic Architecture Report."""
+    return jsonify({
+        "title": "KKR Enterprise Agent Platform: Value Proposition & Strategic Architecture",
+        "subtitle": "3-Tiered Flexible Chain of Thought (FCoT) Multi-Agent Autonomous Engine on Google Cloud & Gemini Enterprise",
+        "executive_summary": "Private equity value creation relies on rapidly expanding EBITDA across diverse portfolio companies without incurring years of technical debt, costly backend re-architecting, or requiring scarce AI research talent at each asset.",
+        "value_pillars": [
+            {
+                "challenge": "AI Talent Deficit",
+                "legacy_approach": "Hiring dedicated AI/ML research engineers per asset ($500k+/yr).",
+                "solution": "Pre-built reusable Blueprints & self-healing agent topologies.",
+                "impact": "80% reduction in deployment overhead; 60–90 day time-to-value."
+            },
+            {
+                "challenge": "Heterogeneous Tech Debt",
+                "legacy_approach": "Full ERP/CRM rewrite (2–3 years, $10M+ risk).",
+                "solution": "Grounding via Agentic Data Cloud federated semantic layer over AS400, SAP, Epic EHR, Oracle.",
+                "impact": "Zero legacy backend refactoring required."
+            },
+            {
+                "challenge": "Unpredictable AI Behavior",
+                "legacy_approach": "Unconstrained LLM wrappers with hallucination risk.",
+                "solution": "3-Tier Governance & FCoT Protocol with automated HITL gates for transactions > $25k.",
+                "impact": "Zero-Trust active runtime compliance & deterministic validation."
+            },
+            {
+                "challenge": "EBITDA Acceleration",
+                "legacy_approach": "Incremental process tweaks; manual back-office tasks.",
+                "solution": "Autonomous multi-system transaction resolution.",
+                "impact": "$1.2M–$2.8M annual OPEX savings per portfolio asset."
+            }
+        ],
+        "architecture_tiers": [
+            {
+                "tier": "Level 1: Executive & Strategic Steering",
+                "agents": ["EBITDA-Optimizer-Agent", "Portfolio-Governance-Overseer"],
+                "role": "Portfolio-wide strategy, EBITDA metrics mapping ($OPEX vs $Revenue), SLA & HITL governance bounds."
+            },
+            {
+                "tier": "Level 2: Domain Blueprint & Integration",
+                "agents": ["Workflow-Decomposer-Agent", "Agentic-Data-Bridge", "Schema-Translator"],
+                "role": "DAG workflow synthesis and live enterprise data grounding via Agentic Data Cloud without DB schema modification."
+            },
+            {
+                "tier": "Level 3: Operational Action & Execution",
+                "agents": ["FDE-Action-Runner", "Tool-Execution-Worker", "Runtime-Verification-Guard"],
+                "role": "Parallel hypothesis evaluation (H1, H2), API/RPA execution, and local micro-retry recovery (R1)."
+            }
+        ],
+        "concrete_walkthroughs": [
+            {
+                "sector": "Healthcare Asset",
+                "scenario": "Claims Processing & Prior Authorization Bottleneck",
+                "latency_reduction": "96 hours -> < 10 minutes",
+                "financial_impact": "$1.2M annual staff re-allocation savings"
+            },
+            {
+                "sector": "Logistics & Manufacturing Asset",
+                "scenario": "Accounts Payable 3-Way Invoice Matching across legacy SAP S/4HANA",
+                "error_rate_reduction": "8.5% -> < 0.1%",
+                "financial_impact": "$450k annual AP operational cost reduction"
+            }
+        ]
+    })
+
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5050))
     logging.info(f"Starting KKR Master Orchestrator Engine on http://0.0.0.0:{port}")
