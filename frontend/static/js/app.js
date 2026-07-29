@@ -12,15 +12,24 @@ class MultiAgentDynamicUiEngine {
         const promptInput = document.getElementById("promptInput");
         const companySelect = document.getElementById("portfolioCompany");
 
+        // Clear active states on preset buttons
+        document.querySelectorAll(".btn-preset").forEach(btn => btn.classList.remove("active"));
+
         if (type === "claims") {
             companySelect.value = "KKR-HEALTHCARE-01";
             promptInput.value = "Healthcare Portfolio Asset – Claims Processing & Authorization Bottleneck. Process claim #CL-88912 for $18,450.00 via AS400 terminal and Epic EHR FHIR endpoints.";
+            const btn = document.querySelector(".btn-preset[onclick*='claims']");
+            if (btn) btn.classList.add("active");
         } else if (type === "procurement") {
             companySelect.value = "KKR-FINANCE-02";
             promptInput.value = "Accounts Payable Invoice Matching v3. Reconcile SAP S/4HANA invoice #INV-2026-901 ($450,000) against purchase order PO-8812 and resolve tax discrepancy.";
+            const btn = document.querySelector(".btn-preset[onclick*='procurement']");
+            if (btn) btn.classList.add("active");
         } else if (type === "supply_chain") {
             companySelect.value = "KKR-LOGISTICS-03";
             promptInput.value = "Multi-Modal Freight Supply Chain Rerouting. Port bottleneck detected at Long Beach; reroute 1,200 TEU container buffer via Oakland rail link.";
+            const btn = document.querySelector(".btn-preset[onclick*='supply_chain']");
+            if (btn) btn.classList.add("active");
         }
     }
 
@@ -571,12 +580,7 @@ class MultiAgentDynamicUiEngine {
             </div>
         `;
     }
-}
 
-const uiEngine = new MultiAgentDynamicUiEngine();
-
-function setPreset(type) {
-    uiEngine.setPreset(type);
     async fetchAndRenderPortfolioHealth() {
         const modal = document.getElementById("portfolioHealthModal");
         const modalBody = document.getElementById("portfolioHealthModalBody");
@@ -728,12 +732,24 @@ function handleCompanySelectChange(val) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Populate default scenario on initial page load
     const companySelect = document.getElementById("portfolioCompany");
     if (companySelect) {
+        // Initial scenario population
         handleCompanySelectChange(companySelect.value);
     }
+
+    // Attach Enter key press handler to promptInput textarea
+    const promptInput = document.getElementById("promptInput");
+    if (promptInput) {
+        promptInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                runOrchestrationStream();
+            }
+        });
+    }
 });
+
 
 
 
