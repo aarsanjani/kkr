@@ -11,26 +11,30 @@ class MultiAgentDynamicUiEngine {
     setPreset(type) {
         const promptInput = document.getElementById("promptInput");
         const companySelect = document.getElementById("portfolioCompany");
+        if (!promptInput || !companySelect) return;
 
         // Clear active states on preset buttons
         document.querySelectorAll(".btn-preset").forEach(btn => btn.classList.remove("active"));
 
-        if (type === "claims") {
+        if (type === "claims" || type === "KKR-HEALTHCARE-01") {
             companySelect.value = "KKR-HEALTHCARE-01";
             promptInput.value = "Healthcare Portfolio Asset – Claims Processing & Authorization Bottleneck. Process claim #CL-88912 for $18,450.00 via AS400 terminal and Epic EHR FHIR endpoints.";
-            const btn = document.querySelector(".btn-preset[onclick*='claims']");
+            const btn = document.getElementById("preset-claims") || document.querySelector(".btn-preset[onclick*='claims']");
             if (btn) btn.classList.add("active");
-        } else if (type === "procurement") {
+        } else if (type === "procurement" || type === "KKR-FINANCE-02") {
             companySelect.value = "KKR-FINANCE-02";
             promptInput.value = "Accounts Payable Invoice Matching v3. Reconcile SAP S/4HANA invoice #INV-2026-901 ($450,000) against purchase order PO-8812 and resolve tax discrepancy.";
-            const btn = document.querySelector(".btn-preset[onclick*='procurement']");
+            const btn = document.getElementById("preset-procurement") || document.querySelector(".btn-preset[onclick*='procurement']");
             if (btn) btn.classList.add("active");
-        } else if (type === "supply_chain") {
+        } else if (type === "supply_chain" || type === "KKR-LOGISTICS-03") {
             companySelect.value = "KKR-LOGISTICS-03";
             promptInput.value = "Multi-Modal Freight Supply Chain Rerouting. Port bottleneck detected at Long Beach; reroute 1,200 TEU container buffer via Oakland rail link.";
-            const btn = document.querySelector(".btn-preset[onclick*='supply_chain']");
+            const btn = document.getElementById("preset-supply-chain") || document.querySelector(".btn-preset[onclick*='supply_chain']");
             if (btn) btn.classList.add("active");
         }
+
+        // Trigger input event to notify DOM listeners
+        promptInput.dispatchEvent(new Event('input', { bubbles: true }));
     }
 
     runOrchestrationStream() {
@@ -722,13 +726,7 @@ function closePortfolioHealthModal(event) {
 }
 
 function handleCompanySelectChange(val) {
-    if (val === "KKR-HEALTHCARE-01") {
-        uiEngine.setPreset("claims");
-    } else if (val === "KKR-FINANCE-02") {
-        uiEngine.setPreset("procurement");
-    } else if (val === "KKR-LOGISTICS-03") {
-        uiEngine.setPreset("supply_chain");
-    }
+    uiEngine.setPreset(val);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -736,6 +734,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (companySelect) {
         // Initial scenario population
         handleCompanySelectChange(companySelect.value);
+        // Explicit change listener
+        companySelect.addEventListener("change", (e) => {
+            handleCompanySelectChange(e.target.value);
+        });
     }
 
     // Attach Enter key press handler to promptInput textarea

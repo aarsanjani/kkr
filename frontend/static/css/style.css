@@ -216,6 +216,14 @@ body {
     color: var(--text-primary);
 }
 
+.btn-preset.active {
+    background: rgba(59, 130, 246, 0.25) !important;
+    border: 1px solid var(--accent-blue) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4) !important;
+    font-weight: 600 !important;
+}
+
 .btn-primary {
     background: linear-gradient(135deg, var(--accent-blue), #2563eb);
     color: white;
