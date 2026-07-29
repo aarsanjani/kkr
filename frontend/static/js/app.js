@@ -315,11 +315,14 @@ class MultiAgentDynamicUiEngine {
                 </div>
 
                 <div>
-                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">3-Tiered Architecture & Agent Hierarchy</h3>
+                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">3-Tiered Architecture & Agent Hierarchy (Click Card to Inspect Telemetry)</h3>
                     <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
                         ${data.architecture_tiers.map((t, idx) => `
-                            <div style="background:rgba(15,23,42,0.6); padding:14px; border-radius:8px; border:1px solid var(--border-color);">
-                                <h4 style="font-size:13px; color:${idx === 0 ? 'var(--accent-blue)' : idx === 1 ? 'var(--accent-purple)' : 'var(--accent-green)'}; margin-bottom:6px;">${t.tier}</h4>
+                            <div onclick="openApertureDetail('${t.id || (idx===0?'l1':idx===1?'l2':'l3')}')" style="background:rgba(15,23,42,0.7); padding:14px; border-radius:8px; border:1px solid var(--border-highlight); cursor:pointer; transition:all 0.2s;" title="Click to inspect ${t.tier} context aperture telemetry">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                    <h4 style="font-size:13px; color:${idx === 0 ? 'var(--accent-blue)' : idx === 1 ? 'var(--accent-purple)' : 'var(--accent-green)'};">${t.tier}</h4>
+                                    <span style="font-size:10px; color:var(--accent-cyan);">🔍 Telemetry</span>
+                                </div>
                                 <div style="margin-bottom:8px;">
                                     ${t.agents.map(a => `<span class="badge" style="background:rgba(255,255,255,0.06); color:var(--text-primary); margin-right:4px;">${a}</span>`).join('')}
                                 </div>
@@ -329,23 +332,59 @@ class MultiAgentDynamicUiEngine {
                     </div>
                 </div>
 
+                <!-- Google ADK & A2UI Declarative Interface Breakdown -->
+                ${data.adk_a2ui_framework ? `
+                    <div style="background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.3); border-radius:10px; padding:18px;">
+                        <div style="font-size:11px; font-weight:700; color:var(--accent-purple); uppercase;">FRAMEWORK SPECIFICATION</div>
+                        <h3 style="font-size:16px; font-weight:700; color:#fff; margin:4px 0 8px 0;">${data.adk_a2ui_framework.title}</h3>
+                        <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:14px;">${data.adk_a2ui_framework.overview}</p>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                            <div>
+                                <h4 style="font-size:13px; color:var(--accent-cyan); margin-bottom:8px;">🤖 Google ADK Python Agent Stack</h4>
+                                <ul style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+                                    ${data.adk_a2ui_framework.adk_components.map(item => `
+                                        <li style="background:rgba(15,23,42,0.8); padding:10px 12px; border-radius:6px; border:1px solid var(--border-color); font-size:12px;">
+                                            <strong style="color:var(--text-primary);">${item.component}:</strong>
+                                            <span style="color:var(--text-secondary);">${item.description}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 style="font-size:13px; color:var(--accent-green); margin-bottom:8px;">⚡ A2UI Declarative Dynamic UI Protocol</h4>
+                                <ul style="list-style:none; display:flex; flex-direction:column; gap:8px;">
+                                    ${data.adk_a2ui_framework.a2ui_protocol.map(item => `
+                                        <li style="background:rgba(15,23,42,0.8); padding:10px 12px; border-radius:6px; border:1px solid var(--border-color); font-size:12px;">
+                                            <strong style="color:var(--accent-green);">${item.feature}:</strong>
+                                            <span style="color:var(--text-secondary);">${item.description}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                ` : ''}
+
                 <div>
-                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">Concrete Asset Impact Walkthroughs</h3>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <h3 style="font-size:15px; font-weight:700; margin-bottom:12px; color:var(--text-primary);">Concrete Asset Impact Walkthroughs (Click Card to Run Workflow)</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
                         ${data.concrete_walkthroughs.map(w => `
-                            <div style="background:rgba(16,185,129,0.06); border:1px solid rgba(16,185,129,0.25); padding:14px; border-radius:8px;">
-                                <div style="font-size:11px; font-weight:700; color:var(--accent-green); uppercase;">${w.sector}</div>
-                                <h4 style="font-size:14px; font-weight:700; margin:4px 0;">${w.scenario}</h4>
-                                <div style="font-size:12px; color:var(--text-secondary); margin-top:6px;">
-                                    Latency/Error Impact: <strong>${w.latency_reduction || w.error_rate_reduction}</strong>
+                            <div onclick="selectScenarioAndRun('${w.preset_key || 'claims'}')" style="background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.35); padding:14px; border-radius:8px; cursor:pointer; transition:all 0.2s;" title="Click to launch live ${w.sector} workflow execution">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                                    <span style="font-size:11px; font-weight:700; color:var(--accent-green);">${w.sector}</span>
+                                    <span style="font-size:10px; color:var(--accent-green); font-weight:700;">▶ Run Scenario</span>
                                 </div>
-                                <div style="font-size:13px; font-weight:700; color:#fff; margin-top:4px;">
-                                    EBITDA Impact: ${w.financial_impact}
+                                <h4 style="font-size:13px; font-weight:700; margin:4px 0;">${w.scenario}</h4>
+                                <div style="font-size:11px; color:var(--text-secondary); margin-top:6px;">
+                                    Latency/Error: <strong>${w.latency_reduction || w.error_rate_reduction}</strong>
+                                </div>
+                                <div style="font-size:12px; font-weight:700; color:#fff; margin-top:4px;">
+                                    EBITDA Gain: ${w.financial_impact}
                                 </div>
                             </div>
                         `).join('')}
-                    </div>
-                </div>
             `;
 
             modalBody.innerHTML = html;
@@ -727,6 +766,14 @@ function closePortfolioHealthModal(event) {
 
 function handleCompanySelectChange(val) {
     uiEngine.setPreset(val);
+}
+
+function selectScenarioAndRun(presetKey) {
+    document.getElementById("reportModal").classList.remove("active");
+    uiEngine.setPreset(presetKey);
+    setTimeout(() => {
+        runOrchestrationStream();
+    }, 150);
 }
 
 document.addEventListener("DOMContentLoaded", () => {

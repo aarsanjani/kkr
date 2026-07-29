@@ -495,33 +495,76 @@ def get_value_proposition_report():
         ],
         "architecture_tiers": [
             {
+                "id": "l1",
                 "tier": "Level 1: Executive & Strategic Steering",
                 "agents": ["EBITDA-Optimizer-Agent", "Portfolio-Governance-Overseer"],
                 "role": "Portfolio-wide strategy, EBITDA metrics mapping ($OPEX vs $Revenue), SLA & HITL governance bounds."
             },
             {
+                "id": "l2",
                 "tier": "Level 2: Domain Blueprint & Integration",
                 "agents": ["Workflow-Decomposer-Agent", "Agentic-Data-Bridge", "Schema-Translator"],
                 "role": "DAG workflow synthesis and live enterprise data grounding via Agentic Data Cloud without DB schema modification."
             },
             {
+                "id": "l3",
                 "tier": "Level 3: Operational Action & Execution",
                 "agents": ["FDE-Action-Runner", "Tool-Execution-Worker", "Runtime-Verification-Guard"],
                 "role": "Parallel hypothesis evaluation (H1, H2), API/RPA execution, and local micro-retry recovery (R1)."
             }
         ],
+        "adk_a2ui_framework": {
+            "title": "Google ADK (Agent Development Kit) & A2UI Declarative Specification",
+            "overview": "The system uses the Google Agent Development Kit (ADK) for Python to construct modular agent hierarchies, combined with A2UI (Agent UI) for real-time declarative UI rendering without manual frontend coding.",
+            "adk_components": [
+                {
+                    "component": "ADK Agent Hierarchy & Callbacks",
+                    "description": "Subclasses of adk.Agent equipped with Vertex AI Gemini Enterprise model instances. Implements pre-execution and post-execution callback hooks to enforce Zero-Trust HITL compliance gates for high-value financial actions."
+                },
+                {
+                    "component": "ADK Workflow Decomposer & Sequential Orchestrator",
+                    "description": "Constructs dynamic Execution DAGs at runtime. Integrates federated data grounding sources (AS400, SAP, Epic EHR, Oracle) via Agentic Data Cloud without modifying underlying database schemas."
+                },
+                {
+                    "component": "ADK Custom Tool Execution Workers",
+                    "description": "Encapsulates REST/gRPC and RPA connectors inside typed ADK tools. Features built-in micro-retry recovery (R1) and parallel hypothesis scoring (H1 vs H2)."
+                }
+            ],
+            "a2ui_protocol": [
+                {
+                    "feature": "Declarative JSON UI Schema Streaming",
+                    "description": "Agents generate typed A2UI JSON payloads over Server-Sent Events (SSE) stream (/api/chat/stream)."
+                },
+                {
+                    "feature": "Dynamic Responsive Components",
+                    "description": "Renders rich interactive UI components (Tabs, Telemetry Meters, Verification Matrices, Interactive Tables) in real-time."
+                }
+            ]
+        },
         "concrete_walkthroughs": [
             {
+                "preset_key": "claims",
+                "portfolio_id": "KKR-HEALTHCARE-01",
                 "sector": "Healthcare Asset",
                 "scenario": "Claims Processing & Prior Authorization Bottleneck",
-                "latency_reduction": "96 hours -> < 10 minutes",
+                "latency_reduction": "96 hours ➔ < 10 minutes",
                 "financial_impact": "$1.2M annual staff re-allocation savings"
             },
             {
-                "sector": "Logistics & Manufacturing Asset",
+                "preset_key": "procurement",
+                "portfolio_id": "KKR-FINANCE-02",
+                "sector": "Global Finance Asset",
                 "scenario": "Accounts Payable 3-Way Invoice Matching across legacy SAP S/4HANA",
-                "error_rate_reduction": "8.5% -> < 0.1%",
+                "latency_reduction": "8.5% error rate ➔ < 0.1%",
                 "financial_impact": "$450k annual AP operational cost reduction"
+            },
+            {
+                "preset_key": "supply_chain",
+                "portfolio_id": "KKR-LOGISTICS-03",
+                "sector": "Supply Chain & Logistics Asset",
+                "scenario": "Multi-Modal Freight Port Rerouting & Buffer Optimization",
+                "latency_reduction": "72 hours recovery ➔ 15 minutes",
+                "financial_impact": "$2.8M annual carrying & demurrage savings"
             }
         ]
     })
