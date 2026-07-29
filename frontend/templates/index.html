@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKR Enterprise Agent Platform | 3-Tiered FCoT Engine</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="logo-badge">KKR</div>
+                <div class="brand-title">
+                    <h1>Enterprise Agent Platform</h1>
+                    <span class="sub-title">3-Tiered FCoT Multi-Agent Autonomous Engine</span>
+                </div>
+            </div>
+            <div class="status-pill">
+                <span class="pulse-dot"></span>
+                <span class="status-text">Gemini 2.0 / Vertex AI Enterprise Active</span>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="dashboard-grid">
+            <!-- Sidebar / Control Panel -->
+            <aside class="control-panel glass-card">
+                <h2>Execution Controls</h2>
+                
+                <div class="control-group">
+                    <label for="portfolioCompany">Portfolio Company Context</label>
+                    <select id="portfolioCompany" class="custom-select">
+                        <option value="KKR-HEALTHCARE-01">Healthcare Asset (AS400 & Epic EHR)</option>
+                        <option value="KKR-FINANCE-02">Global Finance & AP (SAP S/4HANA)</option>
+                        <option value="KKR-LOGISTICS-03">Supply Chain & Freight (Oracle PO Cloud)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Scenario Presets</label>
+                    <div class="preset-buttons">
+                        <button class="btn btn-preset" onclick="setPreset('claims')">Healthcare Claims Pre-Auth</button>
+                        <button class="btn btn-preset" onclick="setPreset('procurement')">Accounts Payable 3-Way Match</button>
+                        <button class="btn btn-preset" onclick="setPreset('supply_chain')">Supply Chain Rerouting</button>
+                    </div>
+                </div>
+
+                <!-- 3-Tier Multi-Agent Mesh Topology Visualizer -->
+                <div class="topology-container">
+                    <h3>3-Tier Agent Mesh Topology</h3>
+                    <div id="topologyPanel" class="topology-panel">
+                        <div class="tier-card tier-l1" id="tierL1">
+                            <div class="tier-header">
+                                <span class="tier-label">LEVEL 1</span>
+                                <span class="tier-name">Executive & Strategic</span>
+                            </div>
+                            <div class="agent-nodes">
+                                <span class="node-pill" id="node-ebitda">EBITDA-Optimizer-Agent</span>
+                                <span class="node-pill" id="node-gov">Portfolio-Governance</span>
+                            </div>
+                        </div>
+
+                        <div class="topology-connector">↓ Strategic Intent & Governance Boundaries</div>
+
+                        <div class="tier-card tier-l2" id="tierL2">
+                            <div class="tier-header">
+                                <span class="tier-label">LEVEL 2</span>
+                                <span class="tier-name">Domain Blueprint & Data Bridge</span>
+                            </div>
+                            <div class="agent-nodes">
+                                <span class="node-pill" id="node-decomposer">Workflow-Decomposer</span>
+                                <span class="node-pill" id="node-databridge">Agentic-Data-Bridge</span>
+                            </div>
+                        </div>
+
+                        <div class="topology-connector">↓ Executable Workflow DAG & Schema Mapping</div>
+
+                        <div class="tier-card tier-l3" id="tierL3">
+                            <div class="tier-header">
+                                <span class="tier-label">LEVEL 3</span>
+                                <span class="tier-name">Operational Action Execution</span>
+                            </div>
+                            <div class="agent-nodes">
+                                <span class="node-pill" id="node-actionrunner">FDE-Action-Runner</span>
+                                <span class="node-pill" id="node-verification">Runtime-Verification</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Work Area -->
+            <section class="main-stage">
+                <!-- Operational Prompt Input Bar -->
+                <div class="prompt-card glass-card">
+                    <label for="promptInput" class="input-label">Operational Request / System Event</label>
+                    <div class="input-row">
+                        <textarea id="promptInput" rows="3" placeholder="Enter operational goal, P&L target, or system event prompt..."></textarea>
+                        <button id="btnRun" class="btn btn-primary" onclick="runOrchestrationStream()">
+                            <span>Execute FCoT Engine</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Trace Log Terminal -->
+                <div class="terminal-card glass-card">
+                    <div class="terminal-header">
+                        <div class="terminal-title">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span>Live Multi-Agent Trace Stream</span>
+                        </div>
+                        <button class="btn-clear" onclick="clearTerminal()">Clear Log</button>
+                    </div>
+                    <div id="terminalStream" class="terminal-body">
+                        <div class="terminal-welcome">System ready. Select a scenario preset or enter a prompt to launch the 3-Tiered FCoT Multi-Agent Autonomous Engine.</div>
+                    </div>
+                </div>
+
+                <!-- FCoT Plan & Dynamic UI Output Container -->
+                <div id="outputContainer" class="output-container glass-card">
+                    <div class="output-placeholder">
+                        <h3>Dynamic FCoT Execution Plan & EBITDA Impact Dashboard</h3>
+                        <p>Execution results, hypothesis evaluations ($H_1, H_2$), and EBITDA impact calculations will render here live.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
