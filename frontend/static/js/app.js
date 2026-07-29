@@ -750,6 +750,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Attach direct click handlers to top header buttons
+    const btnPortfolioHealth = document.getElementById("btnPortfolioHealth");
+    if (btnPortfolioHealth) {
+        btnPortfolioHealth.addEventListener("click", (e) => {
+            e.preventDefault();
+            openPortfolioHealthModal();
+        });
+    }
+
+    const btnValueProp = document.getElementById("btnValueProp");
+    if (btnValueProp) {
+        btnValueProp.addEventListener("click", (e) => {
+            e.preventDefault();
+            openReportModal();
+        });
+    }
 });
 
 
