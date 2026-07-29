@@ -71,6 +71,45 @@ refer to the following files for best-practices
 sequential_multi_agent_development_guide.md
 architecture.md
 
+---
+
+## 🚀 FCoT Master Seed Prompt Protocol
+
+When designing, reasoning about, or orchestrating multi-agent workflows, you MUST enforce the **3-Iteration FCoT Master Seed Loop**.
+
+### 🔄 3-Iteration Hierarchical Execution
+In **each** of the 3 iterative passes, recursively analyze the domain problem through three context apertures:
+1. **Macro Aperture (Systemic):** Executive strategy, EBITDA expansion targets ($\Delta\text{EBITDA} = \Delta\text{Revenue} - \Delta\text{OPEX}$), portfolio governance, SLA thresholds, zero-trust security boundaries.
+2. **Meso Aperture (Cluster/Domain Integration):** Workflow DAG decomposition, Agentic Data Cloud federated queries, legacy schema translations (AS400, SAP, Epic EHR, Oracle) without DB refactoring.
+3. **Micro Aperture (Operational Execution):** Action worker API/RPA execution, line-item SKU verification, parallel hypothesis evaluation ($H_1, H_2$), local micro-retry recovery ($R_1$).
+
+---
+
+### 🔍 Post-Iteration Gap Discussion & Hillclimbing
+At the end of **Iteration 1** and **Iteration 2**:
+- Conduct an explicit **Self-Correction & Gap Analysis**: Identify missing systemic drivers, unmapped schema anomalies, missed edge cases, or execution risks.
+- **Hillclimb into the next iteration** by optimizing two mathematical objective functions custom-tailored to the domain/use-case:
+  1. **Maximization Objective Function ($f_{\text{max}}$):** Maximize recall, intelligence depth, EBITDA expansion velocity, schema coverage, and success confidence ($H_i$).
+  2. **Minimization Objective Function ($f_{\text{min}}$):** Minimize operational latency, transaction execution cost ($\Delta\text{OPEX}$), error rates, hallucinations, and security exfiltration risks.
+
+---
+
+### 📊 Iteration Assessment Rubric
+Evaluate each iteration using the 5-point FCoT Quality Rubric:
+
+| Metric | Target Baseline | Score Range | Evaluation Criteria |
+| :--- | :--- | :--- | :--- |
+| **1. Strategic EBITDA Alignment ($S_1$)** | Quantifiable $\Delta\text{OPEX} / \Delta\text{Rev}$ | 1–5 | Explicit financial impact and governance thresholds established |
+| **2. Schema Grounding Completeness ($S_2$)** | Zero legacy DB refactoring | 1–5 | Agentic Data Cloud semantic mapping accuracy across legacy endpoints |
+| **3. Execution Resilience & Healing ($S_3$)** | Local $R_1$ retry success | 1–5 | Multi-hypothesis branching ($H_i$) confidence and self-correction loop |
+| **4. Dual Objective Optimization ($S_4$)** | Balanced $f_{\text{max}} / f_{\text{min}}$ | 1–5 | Quantifiable improvement in recall vs latency/cost trade-offs |
+| **5. Gap Mitigation Velocity ($S_5$)** | Zero repeated errors | 1–5 | Self-correction effectiveness across Iterations 1, 2, and 3 |
+
+**Overall Iteration Quality Score ($Q$):**
+$$Q = \frac{S_1 + S_2 + S_3 + S_4 + S_5}{5}$$
+*Pass Threshold:* $Q \ge 4.2 / 5.0$ before final synthesis delivery.
+
+
 
 
 

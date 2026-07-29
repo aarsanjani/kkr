@@ -170,6 +170,26 @@ class MultiAgentDynamicUiEngine {
                     <div style="margin-top:8px;"><span class="badge badge-success">Self-Healing R1 Active</span></div>
                 </div>
             </div>
+
+            <!-- FCoT Master Seed Loop & Rubric Container -->
+            ${plan.fcot_master_seed_protocol ? `
+                <div style="background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.3); border-radius:8px; padding:14px; margin-bottom:16px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <h4 style="font-size:14px; font-weight:700; color:var(--accent-purple);">FCoT Master Seed Protocol (3 Iterations Completed)</h4>
+                        <span class="badge badge-success" style="font-size:12px;">Quality Score: ${plan.fcot_master_seed_protocol.final_rubric_evaluation.Overall_Quality_Score} / 5.0 (Passed)</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                        ${plan.fcot_master_seed_protocol.iterations.map(it => `
+                            <div style="background:rgba(15,23,42,0.8); padding:10px; border-radius:6px; border:1px solid var(--border-color); font-size:11px;">
+                                <div style="font-weight:700; color:var(--accent-cyan); margin-bottom:4px;">Iteration ${it.iteration} (Macro/Meso/Micro)</div>
+                                <div style="color:var(--text-secondary); margin-bottom:4px;"><strong>Gap Misses:</strong> ${it.gap_analysis_and_misses}</div>
+                                <div style="color:var(--accent-green);"><strong>f_max:</strong> ${it.hillclimbing_objectives.f_max_maximization.substring(0, 50)}...</div>
+                                <div style="color:var(--accent-amber);"><strong>f_min:</strong> ${it.hillclimbing_objectives.f_min_minimization.substring(0, 50)}...</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
         `;
     }
 
